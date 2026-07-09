@@ -208,7 +208,7 @@ footer p{font-size:11px;color:var(--gray);letter-spacing:.08em}
     <small>家族・仕事・体・心 — 4つの戦場、全31項目。<br>お前が男として、スタートラインに立ててるか。<br>逃げずに答えろ。所要3分。</small>
   </p>
   <button class="hero-cta" onclick="startTest()">診断を始める</button>
-  <p class="hero-note">誰にも見られん。お前と、お前だけの採点や。</p>
+  <p class="hero-note">誰にも見られない。お前と、お前だけの採点だ。</p>
 </section>
 
 <!-- ===== PROGRESS ===== -->
@@ -225,7 +225,7 @@ footer p{font-size:11px;color:var(--gray);letter-spacing:.08em}
   <div class="section-head">
     <span class="h-kicker">第一の戦場</span>
     <h2>家族 <span class="en">HOME</span></h2>
-    <p>女、親、子。一番近い人間への振る舞いが、男の正体や。</p>
+    <p>女、親、子。一番近い人間への振る舞いが、男の正体だ。</p>
   </div>
   <div data-cat="home"></div>
 
@@ -239,14 +239,14 @@ footer p{font-size:11px;color:var(--gray);letter-spacing:.08em}
   <div class="section-head">
     <span class="h-kicker">第三の戦場</span>
     <h2>体 <span class="en">HEALTH</span></h2>
-    <p>授かった体を、大事にしとるか。</p>
+    <p>授かった体を、大事にしているか。</p>
   </div>
   <div data-cat="health"></div>
 
   <div class="section-head">
     <span class="h-kicker">第四の戦場</span>
     <h2>心 <span class="en">HEART</span></h2>
-    <p>誰も見てへん時のお前が、本当のお前や。</p>
+    <p>誰も見ていない時のお前が、本当のお前だ。</p>
   </div>
   <div data-cat="heart"></div>
 
@@ -300,14 +300,14 @@ footer p{font-size:11px;color:var(--gray);letter-spacing:.08em}
     <!-- ▲▲ 例：<iframe src="https://player.vimeo.com/video/XXXX" ...> ▲▲ -->
 
     <!-- ▼▼ StripeのPayment Linkが出来たらhrefを差し替え ▼▼ -->
-    <a class="offer-cta" href="#" id="buyBtn">コースを手に入れる</a>
+    <a class="offer-cta" href="https://buy.stripe.com/9B614mgKC0W859iez17Zu0m" id="buyBtn">コースを手に入れる</a>
     <p class="offer-sub">決済はStripeで安全に処理される。</p>
 
     <p class="close-line">BE A <span class="red">REAL MAN</span></p>
   </div>
 
   <footer>
-    <p>© REAL MEN — ALEXANDER｜<a href="#" style="color:inherit">特定商取引法に基づく表記</a></p>
+    <p>© REAL MEN — ALEXANDER｜<a href="https://realmen.jp/tokushoho.html" style="color:inherit">特定商取引法に基づく表記</a></p>
   </footer>
 </section>
 
@@ -355,10 +355,10 @@ const ITEMS = {
 };
 const CAT_NAMES = { home:"家族", head:"仕事", health:"体", heart:"心" };
 const WEAK_MSG = {
-  home: "外でどれだけ勝っても、家で負けてる男は本物やない。一番近い人間を幸せにできん男に、何を守る資格がある。",
-  head: "口では大きいことを言う。でも時間・約束・金でズレてる男は、静かに信用を失っていく。土台が崩れてるんや。",
-  health: "授かった体を粗末にする男に、勝ち続ける未来はない。体は借り物や。メンテせん借り物は、必ず壊れる。",
-  heart: "誰も見てへん時のお前が、本当のお前や。心が緩んでる男は、他の3つの戦場でも必ず崩れる。ここが根っこや。"
+  home: "外でどれだけ勝っても、家で負けている男は本物じゃない。一番近い人間を幸せにできない男に、何を守る資格がある。",
+  head: "口では大きいことを言う。でも時間・約束・金でズレている男は、静かに信用を失っていく。土台が崩れているんだ。",
+  health: "授かった体を粗末にする男に、勝ち続ける未来はない。体は借り物だ。メンテしない借り物は、必ず壊れる。",
+  heart: "誰も見ていない時のお前が、本当のお前だ。心が緩んでいる男は、他の3つの戦場でも必ず崩れる。ここが根っこだ。"
 };
 
 const answers = {};
@@ -437,10 +437,10 @@ function judge(){
 
   // title & message
   let title, msg;
-  if (score >= 90){ title = "最低基準は、ほぼ守れてる。"; msg = "ただし勘違いするな。ここはスタートラインや。本物の基準は、この遥か上にある。残りの欠けを埋めて、次の段階に進め。"; }
-  else if (score >= 70){ title = "最低基準に、届いてない。"; msg = "惜しいんやない。最低基準は、惜しいが許されん場所や。お前自身が知ってるはずや — 欠けてる場所で、いつも同じ負け方をしてることを。"; }
-  else if (score >= 50){ title = "中途半端。一番危ない位置や。"; msg = "最低基準の半分。全部が中途半端やから、プライドだけが守られてる。この点数のまま10年経つのが、一番怖い未来や。"; }
-  else { title = "今が底や。つまり、ここからは上しかない。"; msg = "正直に答えたこと自体が、最初の勝ちや。逃げずに自分の点数を見た男だけが、変われる。"; }
+  if (score >= 90){ title = "最低基準は、ほぼ守れている。"; msg = "ただし勘違いするな。ここはスタートラインだ。本物の基準は、この遥か上にある。残りの欠けを埋めて、次の段階に進め。"; }
+  else if (score >= 70){ title = "最低基準に、届いていない。"; msg = "惜しいんじゃない。最低基準は、惜しいが許されない場所だ。お前自身が知っているはずだ — 欠けている場所で、いつも同じ負け方をしていることを。"; }
+  else if (score >= 50){ title = "中途半端。一番危ない位置だ。"; msg = "最低基準の半分。全部が中途半端だから、プライドだけが守られている。この点数のまま10年経つのが、一番怖い未来だ。"; }
+  else { title = "今が底だ。つまり、ここからは上しかない。"; msg = "正直に答えたこと自体が、最初の勝ちだ。逃げずに自分の点数を見た男だけが、変われる。"; }
   document.getElementById('scoreTitle').textContent = title;
   document.getElementById('scoreMsg').textContent = msg;
 
