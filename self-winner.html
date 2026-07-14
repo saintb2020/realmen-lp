@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELF WINNER診断 - REAL MEN</title>
+<meta name="description" content="お前が一番負けている原因が、3分でわかる。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 白虎パレット:深い森の夜 */
+  --black:#081711;      /* ベース:ダークグリーン(ほぼ黒の深緑) */
+  --coal:#0E241B;       /* カード面:一段明るい深緑 */
+  --line:#1E3A2E;       /* 罫線:森の輪郭 */
+  --white:#F2EDE8;      /* ホワイト:誠実・本物 */
+  --gray:#8FA398;       /* グレー:緑がかった中間色 */
+  --gold:#C9A24B;       /* ゴールド:勝利・王者(アクセント8%) */
+  --green:#0E3B2E;      /* 予備の緑 */
+  --ice:#A8D4E6;        /* アイスブルー:白虎の目・覚醒(2%) */
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Noto Sans JP',sans-serif;
+  line-height:1.8;
+  min-height:100vh;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 20px}
+
+/* ===== HERO ===== */
+.hero{padding:64px 0 48px;text-align:center}
+.brand{font-size:11px;letter-spacing:.5em;color:var(--gray);font-weight:700;margin-bottom:28px}
+.hero-en{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(38px,11vw,56px);
+  font-weight:700;letter-spacing:.06em;line-height:1.1;
+}
+.hero-en .gold{color:var(--gold)}
+.hero-sub{font-size:13px;letter-spacing:.34em;color:var(--gray);font-weight:700;margin:10px 0 30px}
+.hero-copy{
+  font-size:clamp(17px,4.8vw,21px);font-weight:900;line-height:2;
+}
+.hero-note{font-size:12px;color:var(--gray);margin-top:18px}
+.start-btn{
+  display:inline-block;margin-top:34px;
+  background:var(--gold);color:var(--black);
+  border:none;border-radius:6px;cursor:pointer;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;font-size:17px;letter-spacing:.14em;
+  padding:19px 54px;
+  box-shadow:0 10px 30px rgba(201,162,75,.28);
+  transition:transform .15s;
+}
+.start-btn:active{transform:scale(.97)}
+
+/* ===== QUIZ ===== */
+#quiz{display:none;padding:48px 0 80px}
+.progress-wrap{margin-bottom:40px}
+.progress-label{
+  display:flex;justify-content:space-between;
+  font-size:11px;color:var(--gray);letter-spacing:.14em;font-weight:700;
+  margin-bottom:8px;
+}
+.progress-track{height:4px;background:var(--coal);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:var(--ice);transition:width .3s}
+.battle-tag{
+  display:inline-block;
+  font-size:11px;letter-spacing:.3em;color:var(--gold);font-weight:900;
+  border:1px solid var(--gold);border-radius:2px;
+  padding:5px 14px 4px;margin-bottom:22px;
+}
+.q-text{
+  font-size:clamp(19px,5.4vw,24px);font-weight:900;line-height:1.9;
+  min-height:5.5em;
+}
+.answer-row{display:flex;gap:14px;margin-top:36px}
+.ans-btn{
+  flex:1;
+  background:var(--coal);color:var(--white);
+  border:1px solid var(--line);border-radius:8px;cursor:pointer;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;font-size:18px;letter-spacing:.2em;
+  padding:22px 0;
+  transition:border-color .15s,transform .1s;
+}
+.ans-btn:active{transform:scale(.97);border-color:var(--gold)}
+
+/* ===== RESULT ===== */
+#result{display:none;padding:56px 0 90px}
+.r-head{text-align:center;margin-bottom:44px}
+.r-label{font-size:12px;letter-spacing:.34em;color:var(--gray);font-weight:700;margin-bottom:10px}
+.r-rate{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(72px,24vw,110px);font-weight:700;line-height:1;
+  color:var(--gold);
+}
+.r-rate small{font-size:.35em;letter-spacing:.1em;margin-left:6px}
+.r-verdict{font-size:15px;font-weight:900;margin-top:14px;line-height:2}
+
+.bars{margin:0 0 44px}
+.bar-item{margin-bottom:22px}
+.bar-top{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:7px;
+}
+.bar-name{font-size:14px;font-weight:900;letter-spacing:.12em}
+.bar-pct{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--gray)}
+.bar-track{height:10px;background:var(--coal);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;width:0%;background:var(--gold);border-radius:5px;transition:width 1s ease}
+.bar-item.worst .bar-fill{background:linear-gradient(90deg,#8a6a25,var(--gold))}
+.bar-item.worst .bar-pct{color:var(--gold)}
+
+.callout{
+  background:var(--coal);border:1px solid var(--gold);border-radius:10px;
+  padding:30px 24px;text-align:center;margin-bottom:16px;
+}
+.callout-lead{font-size:12px;letter-spacing:.26em;color:var(--gray);font-weight:700;margin-bottom:12px}
+.callout-main{font-size:clamp(19px,5.6vw,24px);font-weight:900;line-height:1.9}
+.callout-main .gold{color:var(--gold)}
+.callout-main .ice{color:var(--ice)}
+.callout-sub{font-size:14px;line-height:2.1;margin-top:16px;color:var(--white)}
+
+.bridge{
+  text-align:center;font-size:clamp(16px,4.6vw,19px);font-weight:900;
+  line-height:2.1;margin:40px 0 30px;
+}
+
+.video-box{
+  background:var(--coal);border:1px solid var(--line);border-radius:10px;
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+  color:var(--gray);font-size:13px;letter-spacing:.14em;font-weight:700;
+  margin-bottom:30px;
+}
+/* ▼ 動画を入れる時は .video-box の中身をiframe等に差し替え ▼ */
+
+.cta-btn{
+  display:block;width:100%;text-align:center;
+  background:var(--gold);color:var(--black);
+  border:none;border-radius:6px;cursor:pointer;text-decoration:none;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:900;font-size:18px;letter-spacing:.12em;
+  padding:21px 10px;
+  box-shadow:0 10px 30px rgba(201,162,75,.28);
+  transition:transform .15s;
+}
+.cta-btn:active{transform:scale(.98)}
+.cta-note{text-align:center;font-size:12px;color:var(--gray);margin-top:14px}
+
+.close-line{
+  text-align:center;margin-top:64px;
+  font-family:'Oswald',sans-serif;
+  font-weight:700;letter-spacing:.14em;
+  font-size:clamp(16px,4.6vw,20px);
+}
+.close-line .gold{color:var(--gold)}
+footer{
+  text-align:center;padding:30px 0 46px;
+  font-size:11px;color:var(--gray);
+}
+footer a{color:var(--gray)}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero wrap" id="hero">
+  <p class="brand">REAL MEN</p>
+  <h1 class="hero-en">SELF <span class="gold">WINNER</span></h1>
+  <p class="hero-sub">診断</p>
+  <p class="hero-copy">お前が一番負けている原因が、<br>3分でわかる。</p>
+  <p class="hero-note">全24問。YESかNOで答えるだけ。</p>
+  <button class="start-btn" onclick="startQuiz()">診断を始める</button>
+</section>
+
+<!-- ===== QUIZ ===== -->
+<section id="quiz" class="wrap">
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="p-count">Q1 / 24</span>
+      <span id="p-pct">4%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="p-fill"></div></div>
+  </div>
+  <span class="battle-tag" id="b-tag">BATTLE 1｜欲望の戦場</span>
+  <p class="q-text" id="q-text"></p>
+  <div class="answer-row">
+    <button class="ans-btn" onclick="answer(true)">YES</button>
+    <button class="ans-btn" onclick="answer(false)">NO</button>
+  </div>
+</section>
+
+<!-- ===== RESULT ===== -->
+<section id="result" class="wrap">
+  <div class="r-head">
+    <p class="r-label">お前の勝率</p>
+    <p class="r-rate"><span id="r-rate">0</span><small>%</small></p>
+    <p class="r-verdict" id="r-verdict"></p>
+  </div>
+
+  <div class="bars" id="bars">
+    <!-- JSで生成 -->
+  </div>
+
+  <div class="callout">
+    <p class="callout-lead">診断結果</p>
+    <p class="callout-main">お前が一番負けている戦場は<br>【<span class="ice" id="worst-name"></span>】だ。</p>
+    <p class="callout-sub" id="worst-msg"></p>
+  </div>
+
+  <p class="bridge">負けている原因が分かった。<br>次は、勝ち方だ。</p>
+
+  <div class="video-box">（紹介動画をここに入れる）</div>
+
+  <!-- ▼▼ コース購入リンクに差し替え ▼▼ -->
+  <a class="cta-btn" href="#">SELF WINNERコースを見る</a>
+  <p class="cta-note">自分に負ける男から、勝つ男へ。</p>
+
+  <p class="close-line">BE A <span class="gold">REAL MAN</span></p>
+</section>
+
+<footer>
+  <a href="https://realmen.jp/tokushoho.html">特定商取引法に基づく表記</a>
+</footer>
+
+<script>
+// ===== 質問データ =====
+// battle: 0=欲望, 1=怠惰, 2=精神, 3=人生
+// lossOn: "yes" → YESで負け / "no" → NOで負け
+const QUESTIONS = [
+  // Battle 1｜欲望(8問) YES=負け
+  {b:0, t:"「もうやめる」と決めた快楽を、また繰り返したことがある。", lossOn:"yes"},
+  {b:0, t:"目先の快楽を優先して、後で自分が嫌になることがある。", lossOn:"yes"},
+  {b:0, t:"疲れた夜やストレスが溜まった時ほど、欲に負けやすい。", lossOn:"yes"},
+  {b:0, t:"スマホを開いた瞬間、気づいたら1時間以上消えていることがある。", lossOn:"yes"},
+  {b:0, t:"欲を満たした直後に、虚しさが襲ってくることがある。", lossOn:"yes"},
+  {b:0, t:"「これが最後」と自分に言い聞かせたことが、一度や二度じゃない。", lossOn:"yes"},
+  {b:0, t:"誰にも言えない金の使い方・時間の使い方がある。", lossOn:"yes"},
+  {b:0, t:"大切な人の顔が浮かんでも、欲を止められなかったことがある。", lossOn:"yes"},
+  // Battle 2｜怠惰(6問) YES=負け
+  {b:1, t:"やると決めたことを、途中でやめたり後回しにすることが多い。", lossOn:"yes"},
+  {b:1, t:"「明日からやる」を今月すでに一回以上使った。", lossOn:"yes"},
+  {b:1, t:"朝、決めた時間に起きられないことが週に何度もある。", lossOn:"yes"},
+  {b:1, t:"面倒なことを後回しにして、締め切り直前に慌てることがある。", lossOn:"yes"},
+  {b:1, t:"やる気が出るのを待って、結局何もしない日がある。", lossOn:"yes"},
+  {b:1, t:"本当はやるべきことが分かっているのに、別のことに逃げている。", lossOn:"yes"},
+  // Battle 3｜精神(6問) YES=負け
+  {b:2, t:"鏡の中の自分に、自信を持てない。", lossOn:"yes"},
+  {b:2, t:"他人の目や評価が気になって、動けなくなることがある。", lossOn:"yes"},
+  {b:2, t:"一度決めたことが、人の一言でブレることがある。", lossOn:"yes"},
+  {b:2, t:"失敗した時、自分への言い訳を先に探してしまう。", lossOn:"yes"},
+  {b:2, t:"心のどこかで、自分のことが嫌いだ。", lossOn:"yes"},
+  {b:2, t:"「どうせ俺には無理だ」という声が、頭の中にいる。", lossOn:"yes"},
+  // Battle 4｜人生(4問) NO=負け
+  {b:3, t:"人生で成し遂げたい目標がある。", lossOn:"no"},
+  {b:3, t:"今、自分がやっていることに意味を感じている。", lossOn:"no"},
+  {b:3, t:"将来、守りたい人や大切な人のために生きたいと思っている。", lossOn:"no"},
+  {b:3, t:"今のまま5年後になっても、後悔しないと思う。", lossOn:"no"},
+];
+
+const BATTLES = [
+  {name:"欲望", tag:"BATTLE 1｜欲望の戦場", size:8,
+   msg:"欲に飼われている限り、怠惰も精神も人生も、全部そこから崩れていく。まず欲望との戦い方を変えろ。"},
+  {name:"怠惰", tag:"BATTLE 2｜怠惰の戦場", size:6,
+   msg:"やる気の問題じゃない。始め方と続け方の設計がないだけだ。怠惰は根性じゃなく、仕組みで倒す。"},
+  {name:"精神", tag:"BATTLE 3｜精神の戦場", size:6,
+   msg:"自信は生まれつきじゃない。自分との約束を守った回数だ。積み方を知れば、精神は作り直せる。"},
+  {name:"人生", tag:"BATTLE 4｜人生の戦場", size:4,
+   msg:"目の前の戦いに勝っても、向かう先がなければ勝ちは積み上がらない。人生の照準を最初に定めろ。"},
+];
+
+let current = 0;
+let losses = [0,0,0,0]; // battleごとの負け数
+
+function startQuiz(){
+  document.getElementById('hero').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  render();
+  window.scrollTo(0,0);
+}
+
+function render(){
+  const q = QUESTIONS[current];
+  document.getElementById('q-text').textContent = q.t;
+  document.getElementById('b-tag').textContent = BATTLES[q.b].tag;
+  document.getElementById('p-count').textContent = 'Q' + (current+1) + ' / 24';
+  const pct = Math.round(((current)/24)*100);
+  document.getElementById('p-pct').textContent = pct + '%';
+  document.getElementById('p-fill').style.width = pct + '%';
+}
+
+function answer(isYes){
+  const q = QUESTIONS[current];
+  const lost = (q.lossOn === 'yes' && isYes) || (q.lossOn === 'no' && !isYes);
+  if (lost) losses[q.b]++;
+  current++;
+  if (current < QUESTIONS.length){
+    render();
+  } else {
+    showResult();
+  }
+}
+
+function showResult(){
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  window.scrollTo(0,0);
+
+  const totalLoss = losses.reduce((a,b)=>a+b,0);
+  const winRate = Math.round(((24 - totalLoss) / 24) * 100);
+
+  // 勝率カウントアップ
+  const rateEl = document.getElementById('r-rate');
+  let n = 0;
+  const step = Math.max(1, Math.round(winRate/40));
+  const timer = setInterval(()=>{
+    n += step;
+    if (n >= winRate){ n = winRate; clearInterval(timer); }
+    rateEl.textContent = n;
+  }, 24);
+
+  // 総評
+  const verdict = document.getElementById('r-verdict');
+  if (winRate >= 80){
+    verdict.textContent = "勝てている。だが、本物の基準はまだ上にある。";
+  } else if (winRate >= 60){
+    verdict.textContent = "勝ち越してはいる。だが、負けている戦場が足を引っ張っている。";
+  } else if (winRate >= 40){
+    verdict.textContent = "今は、自分に負ける日の方が多い。";
+  } else {
+    verdict.textContent = "今のお前は、欲望に飼われている。";
+  }
+
+  // Battleバー生成
+  const barsEl = document.getElementById('bars');
+  const winPcts = BATTLES.map((b,i)=> Math.round(((b.size - losses[i]) / b.size) * 100));
+
+  // 最弱戦場(勝率最小・同率なら先頭=欲望優先)
+  let worst = 0;
+  for (let i=1;i<4;i++){ if (winPcts[i] < winPcts[worst]) worst = i; }
+
+  BATTLES.forEach((b,i)=>{
+    const item = document.createElement('div');
+    item.className = 'bar-item' + (i===worst ? ' worst' : '');
+    item.innerHTML =
+      '<div class="bar-top"><span class="bar-name">'+ b.name +'</span>' +
+      '<span class="bar-pct">'+ winPcts[i] +'%</span></div>' +
+      '<div class="bar-track"><div class="bar-fill" data-w="'+ winPcts[i] +'"></div></div>';
+    barsEl.appendChild(item);
+  });
+
+  // バーアニメーション
+  setTimeout(()=>{
+    document.querySelectorAll('.bar-fill').forEach(el=>{
+      el.style.width = el.dataset.w + '%';
+    });
+  }, 300);
+
+  // 名指し
+  document.getElementById('worst-name').textContent = BATTLES[worst].name;
+  document.getElementById('worst-msg').textContent = BATTLES[worst].msg;
+}
+</script>
+</body>
+</html>
